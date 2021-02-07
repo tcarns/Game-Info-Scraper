@@ -1,7 +1,7 @@
 import sys, gameboy, gameboyadv, genesis
 validTypes = ['gb', 'gbc', 'gba', 'md']
 
-
+# Handles which file type breakdown to use
 def typeWrapper(file, type):
     typeSwitcher = {
         'gb': gameboy.gbBreakdown,
@@ -11,7 +11,6 @@ def typeWrapper(file, type):
     }
 
     typeSwitcher.get(type)(file)
-
 
 if len(sys.argv) <= 1:
     print("Please submit a valid game file to scrape info from\nError code 001: No file submitted")

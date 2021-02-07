@@ -1,5 +1,6 @@
 def gbaBreakdown(file):
 
+    # First letter of game code, used for various different means of classification
     gameCodeBreakdownFirst = {
         'A': 'Normal game; Older titles (mainly 2001..2003)',
         'B': 'Normal game; Newer titles (2003..)',
@@ -12,15 +13,18 @@ def gbaBreakdown(file):
         'V': 'Drill Dozer (cartridge with rumble)'
     }
 
+    # Last letter of game code, used for localization information
     gameCodeBreakdownLast = {
         'J': 'Japan', 'P': 'Europe/Elsewhere', 'F': 'French', 'S': 'Spanish', 'E': 'USA/English', 'D': 'German', 'I': 'Italian'
     }
 
+    # Title, game code, and maker (developer) code
     file.seek(160)
     title = file.read(12).decode()
     gameCode = file.read(4).decode()
     makerCode = file.read(2).decode()
 
+    # Reporting
     print("Game Type: Game Boy Advance")
     print("Game Title: " + title)
 

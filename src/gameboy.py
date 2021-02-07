@@ -1,5 +1,6 @@
 def gbBreakdown(file):
 
+    # Licensee codes used for newer Game Boy games
     gbLicenseeCodes = {
         '00': 'None', '01': 'Nintendo R&D1', '08': 'Capcom', '13': 'Electronic Arts', '18': 'Hudson Soft', '19': 'b-ai', '20': 'kss', '22': 'pow', '24': 'PCM Complete', '25': 'san-x',
         '28': 'Kemco Japan', '29': 'seta', '30': 'Viacom', '31': 'Nintendo', '32': 'Bandai', '33': 'Ocean/Acclaim', '34': 'Konami', '35': 'Hector', '37': 'Taito', '38': 'Hudson',
@@ -10,6 +11,7 @@ def gbBreakdown(file):
         '95': 'Varie', '96': 'Yonezawa/s\'pal', '97': 'Kaneko', '99': 'Pack-In-Video', 'A4': 'Konami (Yu-Gi-Oh!)'
     }
 
+    # Licensee codes used for older Game Boy Games
     gbOldLicenseeCodes = {
         '00': 'None', '01': 'Nintendo', '08': 'Capcom', '09': 'Hot B', '0A': 'Jaleco', '0B': 'Coconuts Japan', '0C': 'Elite Systems', '13': 'Electronic Arts', '18': 'Hudson Soft',
         '19': 'ITC Entertainment', '1A': 'Yanoman Corporation', '1D': 'Japan Clary Business', '1F': 'Virgin Interactive', '24': 'PCM Complete', '25': 'San-X', '28': 'Kotobuki System',
@@ -44,9 +46,11 @@ def gbBreakdown(file):
         b'\x00': 'Japanese', b'\x01': 'Non-Japanese'
     }
 
+    # Game title
     file.seek(308)
     title = file.read(15).decode()
 
+    # Licensee code
     file.seek(1, 1)
     licenseeCode = file.read(2)
     if licenseeCode == b'\x00\x00':
@@ -54,19 +58,24 @@ def gbBreakdown(file):
     else:
         licenseeCode = licenseeCode.decode()
 
+    # ROM size
     file.seek(2, 1)
     ROMSize = file.read(1)
 
+    # RAM size
     RAMSize = file.read(1)
 
+    # Localization information
     destination = file.read(1)
 
+    # Check if an old or new licensee code is used
     oldCode = False
     oldLicenseeCodeCheck = file.read(1).hex()
     if oldLicenseeCodeCheck != '33':
         oldCode = True
         licenseeCode = oldLicenseeCodeCheck
 
+    # Reporting
     print("Game Type: Game Boy OR Game Boy Color")
     print("Game Title: " + title)
 

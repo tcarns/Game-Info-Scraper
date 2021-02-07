@@ -1,3 +1,4 @@
+# Genesis games like to have a lot of random whitespace in their names, so this is used for filtering out said whitespace
 def titleFilter(var):
     if var != '':
         return True
@@ -34,11 +35,15 @@ def genBreakdown(file):
         "F": "Japan/Americas/Europe", "J": "Japan", "U": "Americas"
     }
 
+    # System type
     file.seek(256)
-    sType = file.read(16).decode().strip()
+    sysType = file.read(16).decode().strip()
 
+    # Release information
     releaseDate = file.read(16).decode()
 
+    # Game title. Genesis games like to pad their game titles with a lot of whitespace, so use a filtering function and
+    # a subsequence for loop to remove it all
     file.seek(48, 1)
     title = file.read(48).decode().split(" ")
     filtered = filter(titleFilter, title)
@@ -46,16 +51,20 @@ def genBreakdown(file):
     for x in filtered:
         title = title + x + ' '
 
+    # Serial information
     serial = file.read(14).decode().strip()
 
+    # Device support
     file.seek(2, 1)
     deviceSupport = file.read(16).decode().strip()
 
+    # Localization information
     file.seek(80, 1)
     regionSupport = file.read(3).decode().strip()
 
+    # Reporting
     print("Game Type: Sega Genesis")
-    print("System Type: " + systemTypes.get(sType, "Unexpected system type"))
+    print("System Type: " + systemTypes.get(sysType, "Unexpected system type"))
     print("Copyright and Release Date: " + releaseDate)
     print("Title: " + title.rstrip())
     print("Serial Info: " + serial + " (" + serial[:2] + " = " + softwareTypes.get(serial[:2], "Unexpected software type") + ")")
