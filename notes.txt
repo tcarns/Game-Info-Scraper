@@ -1,0 +1,10 @@
+Game Boy
+https://gbdev.gg8.se/wiki/articles/The_Cartridge_Header
+https://raw.githubusercontent.com/gb-archive/salvage/master/txt-files/gbrom.txt
+
+Game Boy Advance
+http://members.iinet.net.au/~freeaxs/gbacomp/#GBA%20Header
+https://problemkaputt.de/gbatek.htm#gbamemorymap
+
+Genesis
+https://plutiedev.com/rom-header
